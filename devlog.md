@@ -1,0 +1,3 @@
+# Date: 9/29/2025, # Time: 8:27 PM
+
+Hey, this is my first session! The project doesn't seem too difficult, but will definitely take some time to implement, especially considering the fact that I'm only a beginner when it comes to writing code in Racket. Firstly, I will implement the algorithm for solving prefix-notation expessions. For now, I will try to use a stack to help get this part done. Secondly, I want to create an user interface. This won't be that much of a challenge.  The remaining stuff such as adding a history of values will be handled last. That's all!
