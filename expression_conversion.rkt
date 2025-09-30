@@ -1,6 +1,7 @@
 #lang racket
 
-; Test case: (infix_to_prefix_conversion "2 * ($1 + $2) + 1")
+; THIS IS FOR MY USE ONLY: I JUST WANT TO BE ABLE TO EASILY COPY THE FUNCTION CALL(S) IN THE TERMINAL WITHOUT HAVING TO WRITE IT MANUALLY OVER AND OVER AGAIN!!!!
+; Test case: (infix_to_prefix_conversion "5 * ($1 + $2) + 9")
 
 
 
@@ -16,66 +17,58 @@
         [(equal? op "*") 2]
         [(equal? op "/") 2]
         [else 0]))
-
-; Swap parentheses 
-(define (reverse-tokens tokens)
-  (map (lambda (tok)
-         (cond [(equal? tok "(") ")"]
-               [(equal? tok ")") "("]
-               [else tok]))
-       (reverse tokens)))  
-  
+ 
   
 ; convert reversed infix to postfix
-(define (conversion_loop current_lst stack expression)
+(define (conversion_loop current_lst stack output)
   (cond
-    [(null? current_lst) (append expression (reverse stack))]
+    [(null? current_lst) (append (reverse stack) output)]
     [else
      (let* ([token (car current_lst)]
-            [remaining (cdr current_lst)])
+            [remaining (cdr current_lst)]
+            )
        (cond
-         [(regexp-match #px"^\\$?\\d+$" token) (conversion_loop remaining stack (append expression (list token)))]
-
-         [(equal? token "(") (conversion_loop remaining (cons token stack) expression)]
+         [(regexp-match #px"^\\$?\\d+$" token)
+          (conversion_loop remaining stack (cons token output))]
 
          [(equal? token ")")
-          (let loop ([stk stack] [exp expression])
+          (conversion_loop remaining (cons token stack) output)]
+
+         [(equal? token "(")
+          (let loop ([stk stack] [out output])
             (cond
               [(null? stk) (display "Invalid Expression")]
-
-              [(equal? (car stk) "(") (conversion_loop remaining (cdr stk) exp)]
-
-              [else (loop (cdr stk) (append exp (list (car stk))))]
+              [(equal? (car stk) ")") (conversion_loop remaining (cdr stk) out)]
+              [else (loop (cdr stk) (cons (car stk) out))]
               )
             )
           ]
 
-         [else
-          (let loop ([stk stack] [exp expression])
+         [else 
+          (let loop ([stk stack] [out output])
             (if (and (not (null? stk))
-                     (>= (precedence (car stk)) (precedence token)))
-                (loop (cdr stk) (append exp (list (car stk))))
-                (conversion_loop remaining (cons token stk) exp)))]
+                     (> (precedence (car stk)) (precedence token))
+                     )
+                (loop (cdr stk) (cons (car stk) out))
+                (conversion_loop remaining (cons token stk) out))
+            )
+          ]
          )
        )
      ]
     )
-              
-         
-         
-    )
+  )
 
 
 ; Source file to be used in "main_file.rkt"
 (provide infix_to_prefix_conversion)
 
-; Convert string from infix to prefix (reverse first)
+; Convert string from infix to prefix (reverse the tokens first)
 (define (infix_to_prefix_conversion str)
   (let* ([tokens (tokenize str)]
-         [rev (reverse-tokens tokens)]
-         [postfix (conversion_loop rev '() '())]
-         [prefix (string-join (reverse postfix) " ")]
-         )
-         (display prefix)
-    )
-  )
+         [prefix (string-join (conversion_loop (reverse tokens) '() '()) " ")])
+    prefix))
+  
+
+; THIS IS FOR MY USE ONLY: I JUST WANT TO BE ABLE TO EASILY COPY THE FUNCTION CALL(S) IN THE TERMINAL WITHOUT HAVING TO WRITE IT MANUALLY OVER AND OVER AGAIN!!!!
+; Test case: (infix_to_prefix_conversion "5 * ($1 + $2) + 9")
