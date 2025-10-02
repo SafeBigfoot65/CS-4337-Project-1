@@ -6,6 +6,7 @@
 
 
 ; Tokenizes the string so that whenever I reverse the string, it will keep certain characters in place ($n)
+(provide tokenize)
 (define (tokenize str)
   (regexp-match* #px"\\$\\d+|\\d+|[+*()-]|\\S" str))
 

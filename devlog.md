@@ -10,3 +10,7 @@ Howdy! So far, I've managed to implement converting the infix expression to pref
 # Date: 9/30/2025, # Time: 12:03 PM
 
 I just realized that the expression between infix to prefix was wrong, so I committed a fix to it, and also updated the main file as well (just changed the test case for MY USE ONLY)
+
+# Date: 10/2/2025, # Time: 9:07 PM
+
+I have finally the algorithm for evaluating prefix expressions. I also added a history that simply contains the list of previous results. My next goal is to implement the user interface. This part will be simple to do! It will just repeat the same old things (coversion, evaluation, etc) until the user types in "quit" to end it. I believe the only thing left after that will be adding the interactive and batch mode, but the professor has added code for that yet. For each file, I also added test cases, so that whenever I run it, I don't have to manually type the function call over and over again. They're mainly for my use, feel free to use it as you please! Until next time!
