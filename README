@@ -1,0 +1,41 @@
+Name: Tobenna Nwosu
+NETID: TCN220000
+Class: CS 4337.006
+Project 1
+IDE: VS Code
+
+FILES:
+    A. main_file.rkt: Basically combines the functions from the other files. It also serves as the user interface for both the interactive and batch mode.
+    B. evaluating_prefix.rkt: Based on the coverted prefix expression, it evaluates it and converts it to a float. Then it will store the new result in a list called "history". Of course, the expression has to be valid.
+    C. expression_conversion.rkt: Converts an infix expression to a prefix expression
+    d. mode.rkt: Written by Professor Salazar, it grants the ability to run the program either in interactive or batch mode.
+    e. devlog.md: Basically my diary!
+    f. README: Instructions and other important information
+    h. text.txt: To be used as an example for running in batch mode
+    EVERYTHING ELSE IS NOT IMPORTANT!!!
+    
+
+INSTRUCTIONS:
+    A. Interactive Mode:
+        1. In the command line, type in the following to run the program
+            i. "racket main_file.rkt"
+        2. You have the option of either typing in a valid infix expression (e.g., 3 + 4), or quit/QUIT to gracefully exit the program
+            i. For a valid expression, the following operators, placeholder, and numbers are valid:
+                Operators = +, -, /, *
+                Placeholder: $n, where n is an int value (must have a value stored in the history that corresponds to the placeholder)
+                Numbers: Any is fine!
+        3. When evaluating the converted prefix expression, the result is converted to a float and stored in a list called "history". This list will allow you to subsitute the placeholders, if valid and available.
+           Of course, the list starts off as empty!
+    B. Batch mode:
+        1. In the command line, type in the following to run the program. "Text.txt" could be replaced for any valid text file, it's just there for a demonstration purpose.
+            i. "Get-Content text.txt | racket main_file.rkt --batch"
+                a. DO THIS IF YOU'RE USING POWERSHELL!
+
+            OR
+
+            ii. "racket main_file.rkt -b < text.txt"
+                a. DO THIS IF YOU'RE USING THE COMMAND PROMPT
+
+            ii. It will then print out on each new line the result of the line in the text file with the id number of the result stored in history. You don't need to include "quit" or "QUIT" as the last line.
+                It will automatically exit the program after evaluating each infix expressions.
+

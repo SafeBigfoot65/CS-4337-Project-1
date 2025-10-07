@@ -44,28 +44,24 @@
            [else
             (if (< (length stack) 2)
                 (values #f hist)
-                (let* ([a (list-ref stack 1)]
-                       [b (car stack)]
-                       [rest-stack (cddr stack)]
-                       [result (case token
-                                 [("+") (+ a b)]
-                                 [("-") (- a b)]
-                                 [("*") (* a b)]
-                                 [("/") (/ a b)]
-                                 [else #f])
-                               ]
-                       )
-                  (if (not result)
-                      (values #f hist)
-                      (evaluate-loop rest (cons result rest-stack) hist))
-                  )
-                )
-            ]
-           )
-         )
-       ]
-      )
+                (let* ([first (car stack)]
+                  [second (cadr stack)]
+                  [rest-stack (cddr stack)]
+                  [result (case token
+                            [("+") (+ first second)]
+                            [("-") (- first second)]
+                            [("*") (* first second)]
+                            [("/") (/ first second)]
+                            [else #f])])
+                (evaluate-loop rest (cons result rest-stack) hist)
+              )
+            )
+          ]
+          )
+        )
+      ]
     )
+   )
 
   
   (evaluate-loop (reverse prefix) '() history)
